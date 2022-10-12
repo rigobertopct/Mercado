@@ -15,6 +15,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='products/', null=False, blank=False)
     category = models.ManyToManyField(Category)
+    stock=models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title

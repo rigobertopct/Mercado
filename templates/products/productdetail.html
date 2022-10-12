@@ -1,43 +1,34 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 {% load static %}
+{% block prueba %}background-color: #051922; !important;{% endblock %}
 
 
-
-{% block Contenidos %}
-
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	<!-- single product -->
+{% block Contenido %}
+<!-- single product -->
 	<div class="single-product mt-150 mb-150">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-5">
                     {% if product.image %}
 					<div class="single-product-img">
-						<img src="{{ product.image.url}}" alt="{{ product.title }}">
+						<img src="{{ product.image.url}}" alt="{{ product.title}}" style="height: 500px; object-fit: cover;">
 					</div>
-                     {% else %}
-                        <div class="single-product-img">
-						<img src="{{ product.image.url}}" alt="{{ product.title }}">
+                    {% else %}
+                    <div class="single-product-img" style="height: 500px; object-fit: cover;">
+						<img src="{{ product.image.url}}" alt="{{ product.title}}">
 					</div>
                     {% endif %}
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-content">
-						<h3>{{ product.title}}</h3>
-						<p class="single-product-pricing"><span>Precio:</span> {{product.price}}</p>
+						<h3>{{ product.title }}</h3>
+						<p class="single-product-pricing"><span>Precio:</span> ${{ product.price }}</p>
 						<p>{{ product.description }}</p>
 						<div class="single-product-form">
-								{% include 'carts/snippets/add.html' %}
-							<p><strong>Categorias: </strong>{% for foo in product.category.all %}
+							{% include 'carts/snippets/add.html' %}
+							<p><strong>Categorías: </strong>{% for foo in product.category.all %}
                                 {{ foo.title}}
 							{% endfor %}</p>
-
 						</div>
 					</div>
 				</div>

@@ -21,9 +21,9 @@ def add(request):
     # estos nombres son los nombres del formulario los que obtiene el request
     cart = get_or_create_cart(request)
     product = get_object_or_404(Product, pk=request.POST.get('product_id'))
+
     # si esa llave no existe, el valor de la llave será uno por default de productos
     quantity = int(request.POST.get('quantity', 1))
-
     cart_product = CartProducts.objects.create_or_update_quantity(cart=cart, product=product, quantity=quantity)
     # esta forma de agregar no esta BIEN PORQUE CADA VEZ QUE AGREGO NUEVOS NO SE ACTUALIZA, SOLO LOS QUE ENVIE EN EL MOMENTO
     # cart.products.add(product, through_defaults={
@@ -34,6 +34,9 @@ def add(request):
     product = Product.objects.get(pk=request.POST.get('product_id'))
     # cart es una instacia del modelo por lo que para acceder a atributo products es la relacion ManytoMany
     cart.products.add(product)
+    product.stock=product.stock-quantity
+    product.save()
+
 
     return render(request, 'carts/add.html', {
         'quantity': quantity,
@@ -46,8 +49,10 @@ def remove(request):
     cart = get_or_create_cart(request)
     product = get_object_or_404(Product, pk=request.POST.get('product_id'))
     # 'product_id' es el nombre del formulario html donde obtiene el id del producto
+    quantity = int(request.POST.get('quantity', 1))
     product = Product.objects.get(pk=request.POST.get('product_id'))
     # cart es una instacia del modelo por lo que para acceder a atributo products es la relacion ManytoMany
     cart.products.remove(product)
-
+    product.stock=product.stock+quantity
+    product.save()
     return redirect('carts:cart')

@@ -1,8 +1,9 @@
  {% extends 'base.html' %}
 {% load product_extras %}
-
-{% block  content %}
-
+{% block prueba %}background-color: #051922; !important;{% endblock %}
+{% block Contenido %}
+		<div class="container mt-150 mb-150">
+			<div class="row">
 {% if cart.products.exists %}
 <div class="col-8">
         <table class="table">
@@ -10,9 +11,9 @@
                 <tr>
                     <th></th>
                     <th></th>
-                    <th  scope="row">🛍️ Producto</th>
-                    <th  scope="row">🧮 Cantidad</th>
-                    <th  scope="row">💲 Precio</th>
+                    <th  scope="row">Producto</th>
+                    <th  scope="row">Cantidad</th>
+                    <th  scope="row">Precio</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                     </th>
                     <th>
                         {{ cp.quantity}}
+
                     </th>
                     <th>
                         <span class="font-weight-bold text-danger">{{product.price | price_format}}</span>
@@ -53,7 +55,7 @@
         Subtotal: ({{ cart.products.count}}) <span class="text-danger">{{ cart.subtotal | price_format }}</span>
     </div>
     <div class="mt-2">
-        <a href="{% url 'orders:order' %}" class="btn btn-success">💳 Proceder al pago</a>
+        <a href="{% url 'orders:order' %}" class="btn btn-warning"> Proceder al pago</a>
     </div>
     </div>
    </div>
@@ -67,5 +69,6 @@
 
 </div>
 {% endif %}
-
+            </div>
+        </div>
 {% endblock  %}
